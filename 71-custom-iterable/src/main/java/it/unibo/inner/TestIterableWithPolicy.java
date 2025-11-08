@@ -16,11 +16,11 @@ public class TestIterableWithPolicy {
     private TestIterableWithPolicy() {}
 
     private static <T> IterableWithPolicy<T> makeIterableWithPolicy(final T[] elements, final Predicate<T> filter) {
-        return new IterableWithPolicyImpl<>(elements, filter);
+        return new IterableWithPolicyImpl<>(elements, filter); //return a new IterableWithPolicyImpl using the provide filter
     }
 
     private static <T> IterableWithPolicy<T> makeIterableWithPolicy(final T[] elements) {
-        return new IterableWithPolicyImpl<>(elements);
+        return new IterableWithPolicyImpl<>(elements); //return a new IterableWithPolicyImpl with a default filter
     }
 
     public static void main(final String[] args) {

@@ -5,30 +5,31 @@ import java.util.NoSuchElementException;
 
 public class IterableWithPolicyImpl<T> implements IterableWithPolicy<T> {
 
-	private T[] elems;
-	Predicate<T> pred;
+	private final T[] elems;
+	private Predicate<T> pred;
 
-	public IterableWithPolicyImpl(T[] elements) {
-		this(elements, t->true);  //richiama il secondo contruttore su un predicato SEMPRE vero
+	public IterableWithPolicyImpl(T[] elements){ //first constructor 
+		this(elements, t->true);  //Always true predicate
 	}
 	
-	public IterableWithPolicyImpl(T[] elements, Predicate<T> p){
+	public IterableWithPolicyImpl(T[] elements, Predicate<T> p){ //second constructor 
 		this.elems = elements;
 		this.pred = p;
 	}
 	
 	@Override
 	public void setIterationPolicy(Predicate<T> filter){
-		this.pred = filter;
+		this.pred = filter; //change the filtering policy
 	}
 
 	public Iterator<T> iterator() {
-		return new IteratorImpl();
+		return new IteratorImpl(); //return new istance of the inner iteretor class
 	}
-
+	//inner class that implement the iteretor
 	private class IteratorImpl implements Iterator<T>{
 		private int index=0;
 
+		@Override
 		public boolean hasNext() {
 			while(index < elems.length){
 				if(pred.test(elems[index])){
@@ -39,6 +40,7 @@ public class IterableWithPolicyImpl<T> implements IterableWithPolicy<T> {
 			return false;
 		}
 
+		@Override
 		public T next() {
 			if(!hasNext()){
 				throw new NoSuchElementException("Nessun elemento disponibile");
