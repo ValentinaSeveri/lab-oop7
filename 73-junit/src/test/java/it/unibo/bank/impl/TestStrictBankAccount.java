@@ -4,13 +4,13 @@ import it.unibo.bank.api.AccountHolder;
 import it.unibo.bank.api.BankAccount;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * Test class for the {@link StrictBankAccount} class.
  */
-class TestStrictBankAccount {
+class TestStrictBankAccount{
 
     // Create a new AccountHolder and a StrictBankAccount for it each time tests are executed.
     private AccountHolder mRossi;
@@ -21,7 +21,7 @@ class TestStrictBankAccount {
      */
     @BeforeEach
     public void setUp() {
-        this.mRossi = new TestStrictBankAccount("Mario", "Rossi", 1);
+        this.mRossi = new AccountHolder("Mario", "Rossi", 1);
         this.bankAccount = new StrictBankAccount(mRossi, 0.0);
     }
 
@@ -40,8 +40,8 @@ class TestStrictBankAccount {
      */
     @Test
     public void testManagementFees() {
-        bankAccount.deposit(1, 100);
-        chargeManagementFees(1);
+        bankAccount.deposit(mRossi.getUserID(), 100);
+        bankAccount.chargeManagementFees(mRossi.getUserID());
         bankAccount.getBalance();
     }
 
@@ -50,7 +50,7 @@ class TestStrictBankAccount {
      */
     @Test
     public void testNegativeWithdraw() {
-        withdraw(1, -100);
+        bankAccount.withdraw(mRossi.getUserID(), -100);
         bankAccount.getBalance();
     }
 
@@ -59,6 +59,6 @@ class TestStrictBankAccount {
      */
     @Test
     public void testWithdrawingTooMuch() {
-        isWithdrawAllowed(bankAccount);
+        bankAccount.withdraw(mRossi.getUserID(), 100);
     }
 }
