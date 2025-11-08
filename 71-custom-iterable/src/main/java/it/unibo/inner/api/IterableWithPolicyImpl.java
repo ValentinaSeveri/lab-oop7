@@ -9,7 +9,15 @@ public class IterableWithPolicyImpl<T> implements IterableWithPolicy<T> {
 	private Predicate<T> pred;
 
 	public IterableWithPolicyImpl(T[] elements){ //first constructor 
-		this(elements, t->true);  //Always true predicate
+		this( elements, 
+			new Predicate<T>() { //passing a predicate that is always true
+				
+				@Override
+				public boolean test(T elem){ //
+					return true;
+				}
+			}
+			);
 	}
 	
 	public IterableWithPolicyImpl(T[] elements, Predicate<T> p){ //second constructor 
