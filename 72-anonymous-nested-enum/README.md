@@ -10,7 +10,7 @@ Si implementi il metodo `identity()`, che deve restituire la funzione identià
 tramite una classe anonima.
 Si osservi `TestFunctionalLibrary` per trovare esempi di classi anonime che implementano function.
 Ci si prepari a rispondere alla seguente domanda al momento della correzione:
-> perché `identity()` è un metodo, e non una costante `public static`?
+> perché `identity()` è un metodo, e non una costante `public static`? Perchè le costanti statiche non possono essere generiche al contrario dei metodi!
 
 ## Parte 2: sfruttare le classi anonime per costruire una libreria funzionale
 

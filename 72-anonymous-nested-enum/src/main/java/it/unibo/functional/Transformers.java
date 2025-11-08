@@ -56,7 +56,7 @@ public final class Transformers {
     public static <I, O> List<O> transform(final Iterable<I> base, final Function<I, O> transformer) {
         List<O> result = new ArrayList<>();
         for(I  b : base){
-            result.add(transformer.call(b));
+            result.add(transformer.call(b)); //apply the trasformer function of each element and add the result to the list
         }
         return result;
     }
@@ -76,7 +76,7 @@ public final class Transformers {
     public static <I> List<? extends I> flatten(final Iterable<? extends Collection<? extends I>> base) {
         List<I> flatt = new ArrayList<>();
         for(Collection<? extends I> b : base){
-                flatt.addAll(b);
+                flatt.addAll(b);  // Add all elements from the current collection to the result list
         }
         return flatt;
     }
@@ -98,10 +98,10 @@ public final class Transformers {
         List<I> selec = new ArrayList<>();
         for(I b : base){
             if(test.call(b)){
-                selec.add(b);
-            }
+                selec.add(b); // If the test returns true, include the element in the result list            }
         }
-        return selec;
+      }
+      return selec;
     }
 
     /**
@@ -120,7 +120,7 @@ public final class Transformers {
         List<I> reje = new ArrayList<>();
         for(I b : base){
             if(!test.call(b)){
-                reje.add(b);
+                reje.add(b); // If the test returns false, include the element in the result list
             }
         }
         return reje;

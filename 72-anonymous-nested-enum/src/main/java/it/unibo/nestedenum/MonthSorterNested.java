@@ -1,11 +1,8 @@
 package it.unibo.nestedenum;
 
-import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Comparator;
-import java.util.Locale;
-import java.util.Objects;
 
 /**
  * Implementation of {@link MonthSorter}.
@@ -13,16 +10,33 @@ import java.util.Objects;
 public final class MonthSorterNested implements MonthSorter {
 
     @Override
-    public Comparator<String> sortByDays() {
-        return null;
+    public Comparator<String> sortByDays() { //comparetor the compares month by their number of days
+        return new Comparator<String>() {
+            @Override
+            public int compare(String m1, String m2){
+                Month month1 = Month.fromString(m1); //convert the input in the month enum values
+                Month month2 = Month.fromString(m2);
+                //compare the numeber of days
+                return Integer.compare(month1.days, month2.days);
+            }
+        }; 
     }
 
     @Override
-    public Comparator<String> sortByOrder() {
-        return null;
+    public Comparator<String> sortByOrder() { //comparetor the compares month by their ordinal position in the enum
+        return new Comparator<String>() {
+            
+            @Override
+            public int compare(String m1, String m2){
+                Month month1 = Month.fromString(m1); //convert the input in the month enum values
+                Month month2 = Month.fromString(m2);
+                //compare their ordianl values
+                return Integer.compare(month1.ordinal(), month2.ordinal()); 
+            }
+        }; 
     }
 
-    public enum Month{
+    public enum Month{ //nested enum representing the month of the year, each with its number of days
         JANUARY(31),
         FEBRUARY(28),
         MARCH(31),
@@ -38,27 +52,27 @@ public final class MonthSorterNested implements MonthSorter {
 
         public int days;
 
-        Month(int days){  //costruttore
+        Month(int days){   //constructor to initialize the number of days
             this.days=days;
         }
        public static Month fromString(String name){
         if(name==null || name.isBlank()){
             throw new IllegalArgumentException("Mese non valido");
         } 
-        String normalized = name.trim().toUpperCase();
+        String normalized = name.trim().toUpperCase(); //normalized the input
 
-        List<Month> match = new ArrayList<>();
-         for(Month m : Month.values()){
-                 if(m.name().startsWith(normalized)){
+        List<Month> match = new ArrayList<>();  //list to collect matching month
+         for(Month m : Month.values()){ 
+                 if(m.name().startsWith(normalized)){ //add month if the name start with the input string
                     match.add(m);
                 }
           }
-          if(match.size() == 1){
+          if(match.size() == 1){ //if one match is found, return it
             return match.get(0);
           }
           else
           {
-            throw new IllegalArgumentException("mese non valdio" + name);
+            throw new IllegalArgumentException("mese non valdio" + name); //otherwise inout is invalid or ambiguous
           }
        }
 
